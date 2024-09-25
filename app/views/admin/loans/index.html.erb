@@ -1,0 +1,27 @@
+<h1>Admin Portal </h1>
+<h2>Loan Requests </h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Amount</th>
+      <th>Interest Rate</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= loan.user.name %></td>
+        <td><%= loan.principal_amount %></td>
+        <td><%= loan.interest_rate %></td>
+        <td>
+        <%= link_to 'Approve', approve_admin_loan_path(loan), method: :patch, data: { turbo_method: :patch } %>
+        <%= link_to 'Reject', reject_admin_loan_path(loan), method: :patch, data: { turbo_method: :patch } %>
+        <%= link_to 'Adjust', adjust_admin_loan_path(loan), method: :get %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

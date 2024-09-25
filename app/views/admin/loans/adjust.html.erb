@@ -1,0 +1,18 @@
+<h1>Adjust Loan</h1>
+
+<%= form_with model: @loan_adjustment, url: update_adjustment_admin_loan_path(@loan), method: :patch, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :new_principal, 'New Principal Amount' %>
+    <%= f.number_field :new_principal, value: @loan.principal_amount, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :new_interest_rate, 'New Interest Rate (%)' %>
+    <%= f.number_field :new_interest_rate, value: @loan.interest_rate, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Submit Adjustment', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', admin_loans_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<h1>My Loans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Interest Rate</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= loan.principal_amount %></td>
+        <td><%= loan.interest_rate %></td>
+        <td><%= loan.state %></td>
+        <td>
+          <% if loan.waiting_for_adjustment_acceptance? %>
+            <%= link_to 'Accept Adjustment', accept_adjustment_loan_path(loan), method: :patch, data: { turbo_method: :patch } %>
+            <%= link_to 'Reject Adjustment', reject_adjustment_loan_path(loan), method: :patch, data: { turbo_method: :patch } %>
+          <% elsif loan.approved? %>
+            <%= link_to 'Confirm Loan', confirm_loan_path(loan), method: :patch %>
+          <% elsif loan.open? %>
+            <%= link_to 'Repay Loan', repay_loan_path(loan), method: :patch, data: { turbo_method: :patch } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Request New Loan', new_loan_path %>
